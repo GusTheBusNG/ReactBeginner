@@ -1,52 +1,27 @@
 import React, { Component } from 'react';
-import { AppRegistry, Image, StyleSheet, Text, View } from 'react-native';
+import { AppRegistry, Text, View, TextInput } from 'react-native';
 
-class Blink extends Component {
+
+export default class PizzaTranslator extends Component {
   constructor(props) {
     super(props);
-    this.state = { isShowingText: true };
-
-    setInterval(() => {
-      this.setState(previousState => (
-        { isShowingText: !previousState.isShowingText }
-      ))
-    }, 1000);
+    this.state = { text: '' };
   }
 
   render() {
-    if (!this.state.isShowingText) {
-      return null;
-    }
-
     return (
-      <Text>{this.props.text}</Text>
-    )
-  }
-}
-
-export default class BlinkApp extends Component {
-  render() {
-    return (
-      <View style={{ alignItems: 'center' }}>
-        <Blink text='Nick Gustafson' />
-        <Blink text='Nick Gustafson' />
-        <Blink text='Nick Gustafson' />
-        <Blink text='Nick Gustafson' />
-        <Blink text='Nick Gustafson' />
-        <Blink text='Nick Gustafson' />
+      <View style={{ padding: 50 }}>
+        <TextInput
+          style={{ height: 40 }}
+          placeholder="This is the placeholder text"
+          onChangeText={(text) => this.setState({ text })}
+        />
+        <Text style={{ padding: 10, fontSize: 42 }}>
+          {this.state.text.split(' ').map((word) => word && '🍕').join(' ')}
+        </Text>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-
-AppRegistry.registerComponent('AwesomeProject', () => BlinkApp);
+AppRegistry.registerComponent('AwesomeProject', () => PizzaTranslator);
